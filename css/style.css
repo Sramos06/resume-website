@@ -1,22 +1,29 @@
 /* Styles for Shawn Angel Ramos's resume website */
 
-/* Colors: a paper sheet on a desk. Dark mode swaps these values. */
+/* Colors: a dark code editor. Light mode swaps these values. */
 :root {
-  --desk: #E9E5DC;
-  --paper: #FDFBF7;
-  --ink: #1A1A1A;
-  --pencil: #4A4A4A;
-  --rule: #D9D4CA;
-  --accent: #1E3A5F;
+  --bg: #0F172A;
+  --panel: #1B2336;
+  --bar: #151D2E;
+  --muted-bg: #272F42;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --border: #334155;
+  --accent: #22C55E;
+  --on-accent: #0F172A;
+  --mono: "JetBrains Mono", Consolas, monospace;
 }
 
-body.dark {
-  --desk: #101216;
-  --paper: #1B1E24;
-  --ink: #ECEAE4;
-  --pencil: #A9A59C;
-  --rule: #343840;
-  --accent: #9DBCE3;
+body.light {
+  --bg: #E2E8F0;
+  --panel: #FFFFFF;
+  --bar: #F1F5F9;
+  --muted-bg: #E2E8F0;
+  --text: #0F172A;
+  --muted: #475569;
+  --border: #CBD5E1;
+  --accent: #166534;
+  --on-accent: #FFFFFF;
 }
 
 /* Base */
@@ -26,13 +33,9 @@ body.dark {
 
 body {
   margin: 0;
-  background-color: var(--desk);
-  color: var(--ink);
-  font-family: "Public Sans", Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "IBM Plex Sans", Arial, sans-serif;
   font-size: 16px;
-  line-height: 1.6;
-}
-
-h1, h2, h3 {
-  font-family: "Libre Bodoni", Georgia, serif;
+  line-height: 1.65;
 }
