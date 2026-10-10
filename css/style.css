@@ -1,1 +1,38 @@
 /* Styles for Shawn Angel Ramos's resume website */
+
+/* Colors: a paper sheet on a desk. Dark mode swaps these values. */
+:root {
+  --desk: #E9E5DC;
+  --paper: #FDFBF7;
+  --ink: #1A1A1A;
+  --pencil: #4A4A4A;
+  --rule: #D9D4CA;
+  --accent: #1E3A5F;
+}
+
+body.dark {
+  --desk: #101216;
+  --paper: #1B1E24;
+  --ink: #ECEAE4;
+  --pencil: #A9A59C;
+  --rule: #343840;
+  --accent: #9DBCE3;
+}
+
+/* Base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--desk);
+  color: var(--ink);
+  font-family: "Public Sans", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: "Libre Bodoni", Georgia, serif;
+}
