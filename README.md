@@ -4,7 +4,7 @@ My web-based resume for Web Development (BSIT, Polytechnic University of the Phi
 
 ## View it
 
-- Live: coming soon
+- Live: https://resume-website-phi-red.vercel.app
 - Locally: open `index.html` in a browser, or run `python -m http.server` in this folder and go to http://localhost:8000
 
 ## Files
