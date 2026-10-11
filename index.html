@@ -12,36 +12,51 @@
 </head>
 <body>
 
-  <!-- Header and navigation -->
-  <header>
-    <nav></nav>
-  </header>
+  <!-- The whole page is one editor window -->
+  <div class="window">
 
-  <main>
-    <!-- About (basic info) -->
-    <section id="about"></section>
+    <!-- Header and navigation -->
+    <header>
+      <div class="titlebar">
+        <span>shawn-ramos / resume / index.html</span>
+        <button id="theme-btn" class="theme-btn">Light mode</button>
+      </div>
+      <nav class="tabs">
+        <a href="#about">about.html</a>
+        <a href="#skills">skills.js</a>
+        <a href="#projects">projects/</a>
+        <a href="#education">education.csv</a>
+        <a href="#contact">contact.md</a>
+      </nav>
+    </header>
 
-    <!-- Skills -->
-    <section id="skills"></section>
+    <main>
+      <!-- About (basic info) -->
+      <section id="about"></section>
 
-    <!-- What I can do -->
-    <section id="can-do"></section>
+      <!-- Skills -->
+      <section id="skills"></section>
 
-    <!-- My edge -->
-    <section id="edge"></section>
+      <!-- What I can do -->
+      <section id="can-do"></section>
 
-    <!-- Projects -->
-    <section id="projects"></section>
+      <!-- My edge -->
+      <section id="edge"></section>
 
-    <!-- Education and experience -->
-    <section id="education"></section>
+      <!-- Projects -->
+      <section id="projects"></section>
 
-    <!-- Contact -->
-    <section id="contact"></section>
-  </main>
+      <!-- Education and experience -->
+      <section id="education"></section>
 
-  <!-- Footer -->
-  <footer></footer>
+      <!-- Contact -->
+      <section id="contact"></section>
+    </main>
+
+    <!-- Footer -->
+    <footer></footer>
+
+  </div>
 
   <script src="js/script.js"></script>
 </body>
