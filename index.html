@@ -148,11 +148,44 @@
       </section>
 
       <!-- Contact -->
-      <section id="contact"></section>
+      <section id="contact">
+        <h2 class="comment">// contact</h2>
+        <p>Have a question or an opportunity? Send me a message, or find me here:</p>
+        <ul>
+          <li>Email: <a href="mailto:ramosshawnangel@gmail.com">ramosshawnangel@gmail.com</a></li>
+          <li>GitHub: <a href="https://github.com/Sramos06" target="_blank" rel="noopener">github.com/Sramos06</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/sramos006" target="_blank" rel="noopener">linkedin.com/in/sramos006</a></li>
+        </ul>
+
+        <form id="contact-form">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+
+          <button type="submit">Send message</button>
+        </form>
+
+        <h3>Where I study</h3>
+        <iframe src="https://maps.google.com/maps?q=Polytechnic+University+of+the+Philippines+Sta.+Mesa+Manila&amp;output=embed" title="Map of the Polytechnic University of the Philippines in Manila" width="600" height="300" style="border:0;" loading="lazy"></iframe>
+      </section>
     </main>
 
-    <!-- Footer -->
-    <footer></footer>
+    <!-- Footer: styled like an editor's status bar -->
+    <footer class="statusbar">
+      <div>
+        <span>main</span>
+        <span>Manila, PH</span>
+      </div>
+      <div>
+        <span>&copy; <span id="year">2026</span> Shawn Angel Ramos</span>
+        <span>UTF-8</span>
+      </div>
+    </footer>
 
   </div>
 
