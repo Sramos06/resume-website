@@ -110,3 +110,95 @@ a:hover {
   background-color: var(--panel);
   color: var(--text);
 }
+
+/* Sections */
+main {
+  padding: 24px 36px 40px;
+}
+
+section + section {
+  margin-top: 48px;
+}
+
+.comment {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+h1 {
+  margin: 0;
+  font-size: 44px;
+  line-height: 1.15;
+}
+
+h3 {
+  margin: 24px 0 6px;
+  font-size: 18px;
+}
+
+p {
+  max-width: 62ch;
+}
+
+li::marker {
+  color: var(--accent);
+}
+
+mark {
+  padding: 0 4px;
+  background-color: var(--muted-bg);
+  color: var(--accent);
+}
+
+/* About */
+.role {
+  margin: 6px 0 20px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.console {
+  max-width: none;
+  margin: 0 0 24px;
+  padding: 10px 14px;
+  border-left: 2px solid var(--accent);
+  background-color: var(--bar);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.about {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.photo {
+  flex-shrink: 0;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.about p {
+  margin: 0 0 12px;
+}
+
+/* The motto, written like a code docstring */
+.doc {
+  margin: 20px 0 0;
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.doc .dim,
+.doc cite {
+  color: var(--muted);
+  font-style: normal;
+}
