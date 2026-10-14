@@ -349,3 +349,48 @@ iframe {
 .statusbar span {
   margin-right: 18px;
 }
+
+/* Responsive */
+.table-wrap {
+  overflow-x: auto;
+}
+
+/* Tablets and small laptops */
+@media (max-width: 768px) {
+  .window {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .about {
+    flex-direction: column;
+  }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  .titlebar {
+    font-size: 11px;
+  }
+
+  .doc {
+    font-size: 13px;
+  }
+
+  table {
+    font-size: 14px;
+  }
+}
