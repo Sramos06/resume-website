@@ -145,7 +145,7 @@ h3 {
 }
 
 p {
-  max-width: 62ch;
+  max-width: 600px;
 }
 
 li::marker {
@@ -432,7 +432,6 @@ main {
   line-height: 23px;
   text-align: right;
   opacity: 0.55;
-  user-select: none;
 }
 
 /* Back-to-top button, hidden until the page is scrolled */
