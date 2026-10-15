@@ -21,3 +21,70 @@ document.getElementById("greeting").innerHTML =
 
 // Footer year, so it never goes out of date
 document.getElementById("year").innerHTML = new Date().getFullYear();
+
+// Skills: each one has a name, a type (language or tool) and a level from 0 to 100
+const skills = [
+  { name: "Java", type: "language", level: 80 },
+  { name: "Python", type: "language", level: 80 },
+  { name: "JavaScript", type: "language", level: 55 },
+  { name: "SQL (MySQL)", type: "language", level: 65 },
+  { name: "HTML and CSS", type: "language", level: 70 },
+  { name: "C++", type: "language", level: 30 },
+  { name: "Git and GitHub", type: "tool", level: 70 },
+  { name: "VS Code", type: "tool", level: 80 },
+  { name: "MySQL Workbench", type: "tool", level: 60 },
+  { name: "pandas and NumPy", type: "tool", level: 60 },
+  { name: "Figma", type: "tool", level: 45 },
+  { name: "Microsoft Excel", type: "tool", level: 70 }
+];
+
+// Turn a level number into a word for the label
+function levelLabel(level) {
+  if (level >= 75) {
+    return "Strong";
+  } else if (level >= 50) {
+    return "Comfortable";
+  } else {
+    return "Learning";
+  }
+}
+
+// Show only the skills that match the clicked filter button
+function showSkills(filter) {
+  let html = "";
+
+  for (let i = 0; i < skills.length; i++) {
+    const skill = skills[i];
+    let show;
+
+    switch (filter) {
+      case "languages":
+        show = skill.type === "language";
+        break;
+      case "tools":
+        show = skill.type === "tool";
+        break;
+      default:
+        show = true;
+    }
+
+    if (show) {
+      html += `<div class="skill">
+        <span class="skill-name">${skill.name}</span>
+        <span class="bar"><span class="bar-fill" style="width: ${skill.level}%"></span></span>
+        <span class="skill-level">${levelLabel(skill.level)}</span>
+      </div>`;
+    }
+  }
+
+  document.getElementById("skill-list").innerHTML = html;
+
+  // Highlight only the button that was clicked
+  const buttons = document.querySelectorAll(".filter-btn");
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove("active");
+  }
+  document.getElementById("btn-" + filter).classList.add("active");
+}
+
+showSkills("all");

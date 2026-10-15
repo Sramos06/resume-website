@@ -56,24 +56,13 @@
       <!-- Skills -->
       <section id="skills">
         <h2 class="comment">// skills</h2>
-        <h3>Languages</h3>
-        <ul>
-          <li>Java</li>
-          <li>Python</li>
-          <li>JavaScript</li>
-          <li>SQL (MySQL)</li>
-          <li>HTML and CSS</li>
-          <li>C++ (currently learning)</li>
-        </ul>
-        <h3>Tools</h3>
-        <ul>
-          <li>Git and GitHub</li>
-          <li>VS Code</li>
-          <li>MySQL Workbench</li>
-          <li>pandas, NumPy and Matplotlib</li>
-          <li>Figma</li>
-          <li>Microsoft Excel</li>
-        </ul>
+        <div class="filters">
+          <button id="btn-all" class="filter-btn active" onclick="showSkills('all')">All</button>
+          <button id="btn-languages" class="filter-btn" onclick="showSkills('languages')">Languages</button>
+          <button id="btn-tools" class="filter-btn" onclick="showSkills('tools')">Tools</button>
+        </div>
+        <!-- Filled in by script.js from the skills array -->
+        <div id="skill-list"></div>
       </section>
 
       <!-- What I can do -->
