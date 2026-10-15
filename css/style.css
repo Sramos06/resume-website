@@ -1,29 +1,31 @@
 /* Styles for Shawn Angel Ramos's resume website */
 
-/* Colors: a dark code editor. Light mode swaps these values. */
+/* Colors: matcha coffee. Dark mode is espresso, light mode is matcha latte. */
 :root {
-  --bg: #0F172A;
-  --panel: #1B2336;
-  --bar: #151D2E;
-  --muted-bg: #272F42;
-  --text: #F8FAFC;
-  --muted: #94A3B8;
-  --border: #334155;
-  --accent: #22C55E;
-  --on-accent: #0F172A;
+  --bg: #17120F;
+  --panel: #211A16;
+  --bar: #1B1512;
+  --muted-bg: #30261F;
+  --text: #F2E8D9;
+  --muted: #B3A391;
+  --border: #3D3129;
+  --accent: #9BC26B;
+  --on-accent: #17120F;
+  --error: #E8907E;
   --mono: "JetBrains Mono", Consolas, monospace;
 }
 
 body.light {
-  --bg: #E2E8F0;
-  --panel: #FFFFFF;
-  --bar: #F1F5F9;
-  --muted-bg: #E2E8F0;
-  --text: #0F172A;
-  --muted: #475569;
-  --border: #CBD5E1;
-  --accent: #166534;
+  --bg: #E9DFCD;
+  --panel: #FBF7EF;
+  --bar: #F4EDE1;
+  --muted-bg: #E7DCC8;
+  --text: #3A2A1F;
+  --muted: #6B5848;
+  --border: #D9CBB4;
+  --accent: #46652A;
   --on-accent: #FFFFFF;
+  --error: #A63A2A;
 }
 
 /* Base */
@@ -364,7 +366,7 @@ input,
 textarea {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--muted);
   border-radius: 4px;
   background-color: var(--bg);
   color: var(--text);
