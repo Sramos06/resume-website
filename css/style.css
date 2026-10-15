@@ -123,8 +123,12 @@ main {
   padding: 24px 36px 40px;
 }
 
-section + section {
+section {
   margin-top: 48px;
+}
+
+#about {
+  margin-top: 0;
 }
 
 .comment {
@@ -392,7 +396,7 @@ textarea {
   font-size: 14px;
 }
 
-button[type="submit"] {
+.send-btn {
   margin-top: 16px;
   padding: 10px 20px;
   border: none;
@@ -533,7 +537,7 @@ main {
 a,
 .theme-btn,
 .project,
-button[type="submit"] {
+.send-btn {
   transition: color 0.2s, background-color 0.2s, border-color 0.2s, opacity 0.2s;
 }
 
@@ -541,7 +545,7 @@ button[type="submit"] {
   border-color: var(--accent);
 }
 
-button[type="submit"]:hover {
+.send-btn:hover {
   opacity: 0.85;
 }
 
