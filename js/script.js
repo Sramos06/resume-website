@@ -88,3 +88,15 @@ function showSkills(filter) {
 }
 
 showSkills("all");
+
+// Light mode: adding the "light" class to <body> swaps every CSS color variable
+function toggleTheme() {
+  document.body.classList.toggle("light");
+
+  const button = document.getElementById("theme-btn");
+  if (document.body.classList.contains("light")) {
+    button.innerHTML = "Dark mode";
+  } else {
+    button.innerHTML = "Light mode";
+  }
+}
