@@ -122,3 +122,47 @@ window.onscroll = function () {
 function scrollToTop() {
   window.scrollTo(0, 0);
 }
+
+// Contact form: check each field, then open the visitor's email app with the message
+function sendMessage() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+  let valid = true;
+
+  // Clear old messages first
+  document.getElementById("name-error").textContent = "";
+  document.getElementById("email-error").textContent = "";
+  document.getElementById("message-error").textContent = "";
+  document.getElementById("form-message").textContent = "";
+
+  if (name === "") {
+    document.getElementById("name-error").textContent = "Please enter your name.";
+    valid = false;
+  }
+
+  if (email === "") {
+    document.getElementById("email-error").textContent = "Please enter your email.";
+    valid = false;
+  } else if (!email.includes("@") || !email.includes(".")) {
+    document.getElementById("email-error").textContent = "That email doesn't look right.";
+    valid = false;
+  }
+
+  if (message === "") {
+    document.getElementById("message-error").textContent = "Please write a message.";
+    valid = false;
+  }
+
+  if (valid) {
+    const subject = "Message from " + name;
+    const body = message + "\n\nFrom: " + name + " (" + email + ")";
+    window.location.href = "mailto:ramosshawnangel@gmail.com?subject=" +
+      encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    document.getElementById("form-message").textContent =
+      "Thanks, " + name + "! Your email app should open with the message ready to send.";
+  }
+
+  // false stops the form from reloading the page
+  return false;
+}

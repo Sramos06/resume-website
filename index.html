@@ -175,17 +175,21 @@
           <li>LinkedIn: <a href="https://www.linkedin.com/in/sramos006" target="_blank" rel="noopener">linkedin.com/in/sramos006</a></li>
         </ul>
 
-        <form id="contact-form">
+        <form id="contact-form" onsubmit="return sendMessage()" novalidate>
           <label for="name">Name</label>
           <input type="text" id="name" name="name" required>
+          <span id="name-error" class="error"></span>
 
           <label for="email">Email</label>
           <input type="email" id="email" name="email" required>
+          <span id="email-error" class="error"></span>
 
           <label for="message">Message</label>
           <textarea id="message" name="message" rows="5" required></textarea>
+          <span id="message-error" class="error"></span>
 
           <button type="submit">Send message</button>
+          <p id="form-message" class="form-message"></p>
         </form>
 
         <h3>Where I study</h3>

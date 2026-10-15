@@ -378,6 +378,20 @@ textarea {
   resize: vertical;
 }
 
+.error {
+  display: block;
+  margin-top: 4px;
+  color: var(--error);
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+.form-message {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
 button[type="submit"] {
   margin-top: 16px;
   padding: 10px 20px;
