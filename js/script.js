@@ -100,3 +100,25 @@ function toggleTheme() {
     button.innerHTML = "Light mode";
   }
 }
+
+// Line numbers down the left edge, like a code editor
+let numbers = "";
+for (let i = 1; i <= 300; i++) {
+  numbers += i + "<br>";
+}
+document.getElementById("gutter").innerHTML = numbers;
+
+// Back-to-top button: only show it after scrolling down a bit
+const topButton = document.getElementById("top-btn");
+
+window.onscroll = function () {
+  if (document.documentElement.scrollTop > 400) {
+    topButton.style.display = "block";
+  } else {
+    topButton.style.display = "none";
+  }
+};
+
+function scrollToTop() {
+  window.scrollTo(0, 0);
+}

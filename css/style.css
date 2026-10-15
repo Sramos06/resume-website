@@ -31,6 +31,11 @@ body.light {
   box-sizing: border-box;
 }
 
+/* Anchor links and the top button scroll smoothly instead of jumping */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   background-color: var(--bg);
@@ -406,6 +411,52 @@ iframe {
   margin-right: 18px;
 }
 
+/* Line-number gutter on the left edge of the editor */
+main {
+  position: relative;
+  padding-left: 88px;
+}
+
+.gutter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 52px;
+  overflow: hidden;
+  padding: 24px 12px 0 0;
+  border-right: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 23px;
+  text-align: right;
+  opacity: 0.55;
+  user-select: none;
+}
+
+/* Back-to-top button, hidden until the page is scrolled */
+.top-btn {
+  display: none;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 10;
+  padding: 8px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  background-color: var(--panel);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.top-btn:hover {
+  background-color: var(--accent);
+  color: var(--on-accent);
+}
+
 /* Responsive */
 .table-wrap {
   overflow-x: auto;
@@ -421,6 +472,10 @@ iframe {
 
   main {
     padding: 20px;
+  }
+
+  .gutter {
+    display: none;
   }
 
   h1 {
