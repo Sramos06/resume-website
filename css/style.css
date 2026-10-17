@@ -118,9 +118,10 @@ a:hover {
   color: var(--text);
 }
 
-/* Sections */
+/* Sections (the big left padding leaves room for the line numbers) */
 main {
-  padding: 24px 36px 40px;
+  position: relative;
+  padding: 24px 36px 40px 88px;
 }
 
 section {
@@ -432,11 +433,6 @@ iframe {
 }
 
 /* Line-number gutter on the left edge of the editor */
-main {
-  position: relative;
-  padding-left: 88px;
-}
-
 .gutter {
   position: absolute;
   top: 0;
