@@ -152,3 +152,14 @@ function sendMessage() {
   return false;
 }
 
+// Phone: the file list slides in from the left. Picking a file closes it again
+function toggleDrawer() {
+  document.body.classList.toggle("drawer-open");
+}
+
+const fileLinks = document.querySelectorAll(".explorer a");
+for (let i = 0; i < fileLinks.length; i++) {
+  fileLinks[i].onclick = function () {
+    document.body.classList.remove("drawer-open");
+  };
+}
