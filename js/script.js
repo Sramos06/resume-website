@@ -108,21 +108,6 @@ for (let i = 1; i <= 300; i++) {
 }
 document.getElementById("gutter").innerHTML = numbers;
 
-// Back-to-top button: only show it after scrolling down a bit
-const topButton = document.getElementById("top-btn");
-
-window.onscroll = function () {
-  if (document.documentElement.scrollTop > 400) {
-    topButton.style.display = "block";
-  } else {
-    topButton.style.display = "none";
-  }
-};
-
-function scrollToTop() {
-  window.scrollTo(0, 0);
-}
-
 // Contact form: check each field, then open the visitor's email app with the message
 function sendMessage() {
   const name = document.getElementById("name").value.trim();
@@ -166,3 +151,4 @@ function sendMessage() {
   // false stops the form from reloading the page
   return false;
 }
+

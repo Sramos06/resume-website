@@ -12,206 +12,225 @@
 </head>
 <body>
 
-  <!-- The whole page is one editor window -->
-  <div class="window">
+  <!-- Top bar: the editor's title bar -->
+  <header class="topbar">
+    <button class="menu-btn" onclick="toggleDrawer()" aria-label="Open the file list">
+      <svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/></svg>
+    </button>
+    <b>PUPian.exe</b>
+    <span class="grow"></span>
+    <button id="theme-btn" class="theme-btn" onclick="toggleTheme()">Light mode</button>
+  </header>
 
-    <!-- Header and navigation -->
-    <header>
-      <div class="titlebar">
-        <span>shawn-ramos / resume / index.html</span>
-        <button id="theme-btn" class="theme-btn" onclick="toggleTheme()">Light mode</button>
+  <!-- Workbench: explorer | editor -->
+  <div class="bench">
+
+    <!-- Explorer: the file list is the navigation -->
+    <aside class="explorer">
+      <details open>
+        <summary>RESUME-WEBSITE</summary>
+        <div class="tree">
+          <a href="#about"><i>&lt;&gt;</i>about.html</a>
+          <a href="#skills"><i>JS</i>skills.js</a>
+          <a href="#can-do"><i>md</i>what-i-can-do.md</a>
+          <a href="#edge"><i>md</i>my-edge.md</a>
+          <a href="#projects"><i>▸</i>projects/</a>
+          <a href="#education"><i>,</i>education.csv</a>
+          <a href="#contact"><i>@</i>contact.md</a>
+        </div>
+      </details>
+    </aside>
+
+    <!-- Editor: a tab with the file name, then the page content -->
+    <main class="editor">
+      <div class="tab-row"><span class="tab">about.html</span></div>
+
+      <!-- Only this part scrolls. The inner box is as tall as the content, so the line numbers can match it -->
+      <div class="code" id="code">
+        <div class="code-inner">
+          <!-- Line numbers, filled in by script.js -->
+          <div id="gutter" class="gutter" aria-hidden="true"></div>
+
+          <!-- About (basic info) -->
+          <section id="about">
+            <h2 class="comment">// about</h2>
+            <h1>Shawn Angel Ramos</h1>
+            <p class="role">BS Information Technology &middot; 3rd Year &middot; <abbr title="Polytechnic University of the Philippines">PUP</abbr> Manila</p>
+            <p id="greeting" class="console">&gt; Hi! I'm Shawn Ramos.</p>
+
+            <div class="about">
+              <img src="images/photo.jpg" alt="Photo of Shawn Angel Ramos" class="photo" width="160" height="160">
+              <div>
+                <p>I'm a third-year <strong>BS Information Technology</strong> student at the Polytechnic University of the Philippines. I mostly write <em>Java</em> and <em>Python</em>, and lately I've been building for the web: a study app called Repaso, school systems with my groupmates, and this page.</p>
+                <p>Outside class, I read novels, watch anime and movies, and play games.</p>
+                <blockquote class="doc">
+                  <span class="dim">/**</span><br>
+                  &nbsp;<span class="dim">*</span> Time never returns. Thus, let's live a faithful life.<br>
+                  &nbsp;<span class="dim">* @see</span> <cite>Regressor's Tale of Cultivation</cite><br>
+                  &nbsp;<span class="dim">*/</span>
+                </blockquote>
+              </div>
+            </div>
+          </section>
+
+          <!-- Skills -->
+          <section id="skills">
+            <h2 class="comment">// skills</h2>
+            <div class="filters">
+              <button id="btn-all" class="filter-btn active" onclick="showSkills('all')">All</button>
+              <button id="btn-languages" class="filter-btn" onclick="showSkills('languages')">Languages</button>
+              <button id="btn-tools" class="filter-btn" onclick="showSkills('tools')">Tools</button>
+            </div>
+            <!-- Filled in by script.js from the skills array -->
+            <div id="skill-list"></div>
+          </section>
+
+          <!-- What I can do -->
+          <section id="can-do">
+            <h2 class="comment">// what i can do</h2>
+            <ol>
+              <li>Build desktop apps in <strong>Java</strong> with Swing</li>
+              <li>Write <strong>Python</strong> scripts that generate and clean data with pandas and NumPy</li>
+              <li>Design <strong>MySQL</strong> tables and write SQL queries</li>
+              <li>Make web pages with <strong>HTML, CSS and JavaScript</strong></li>
+              <li>Keep my work organized with <strong>Git and GitHub</strong></li>
+            </ol>
+          </section>
+
+          <!-- My edge -->
+          <section id="edge">
+            <h2 class="comment">// my edge</h2>
+            <h3>I finish what I start.</h3>
+            <p>Repaso started as a study tool I wanted for myself. It's now a live web app, and I kept improving it until version 2.1.</p>
+            <h3>I fit into a team's code.</h3>
+            <p>For our OOP final, I built the whole Swing interface on top of a teammate's backend without changing their logic. In Data Analytics, I made the dataset my group used for every test and chart.</p>
+            <h3>I stay consistent.</h3>
+            <p>I was a <mark>President's Lister</mark> in my first year and a <mark>Dean's Lister</mark> in my second.</p>
+          </section>
+
+          <!-- Projects -->
+          <section id="projects">
+            <h2 class="comment">// projects</h2>
+
+            <div class="project-list">
+              <article class="project">
+                <a href="https://github.com/Sramos06/repaso" target="_blank" rel="noopener">
+                  <img src="images/repaso.webp" alt="Screenshot of Repaso's desk, where my reviewers are listed" width="480" height="231">
+                </a>
+                <h3>Repaso</h3>
+                <p>A study hub web app where I keep my interactive reviewers and notes in one place, so I can review on my laptop or my phone. Sign-in is limited to my own account for now, so this links to the code.</p>
+                <p class="tech">Personal project &middot; Next.js, PostgreSQL, Vercel</p>
+                <a href="https://github.com/Sramos06/repaso" target="_blank" rel="noopener">View the code on GitHub</a>
+              </article>
+
+              <article class="project">
+                <a href="https://github.com/oop-group1/Simple-Ordering-System" target="_blank" rel="noopener">
+                  <img src="images/ordering-system.png" alt="Screenshot of the Simple Ordering System's inventory report screen" width="480" height="330">
+                </a>
+                <h3>Simple Ordering System</h3>
+                <p>A desktop app for a small food shop: staff log in, manage the product inventory, take orders and check stock reports. I built the Swing interface on top of a teammate's backend.</p>
+                <p class="tech">OOP final project (group) &middot; Java, Swing, MySQL</p>
+                <a href="https://github.com/oop-group1/Simple-Ordering-System" target="_blank" rel="noopener">View the code on GitHub</a>
+              </article>
+            </div>
+          </section>
+
+          <!-- Education and experience -->
+          <section id="education">
+            <h2 class="comment">// education</h2>
+            <div class="table-wrap">
+              <table>
+                <tr class="table-title">
+                  <th colspan="4">Bachelor of Science in Information Technology</th>
+                </tr>
+                <tr>
+                  <th>School</th>
+                  <th>Year</th>
+                  <th>School Year</th>
+                  <th>Recognition</th>
+                </tr>
+                <tr>
+                  <td rowspan="3" class="school">PUP Manila</td>
+                  <td>1st Year</td>
+                  <td>2024&ndash;2025</td>
+                  <td class="honor">President's Lister</td>
+                </tr>
+                <tr>
+                  <td>2nd Year</td>
+                  <td>2025&ndash;2026</td>
+                  <td class="honor">Dean's Lister</td>
+                </tr>
+                <tr>
+                  <td>3rd Year</td>
+                  <td>2026&ndash;2027</td>
+                  <td>In progress</td>
+                </tr>
+                <tr class="table-title">
+                  <th colspan="4">Work Experience</th>
+                </tr>
+                <tr>
+                  <th>Company</th>
+                  <th colspan="2">Role</th>
+                  <th>Years</th>
+                </tr>
+                <tr>
+                  <td class="school">Remotasks</td>
+                  <td colspan="2">Freelance Data Annotator (remote). Drew bounding boxes and sorted images into categories.</td>
+                  <td>2020&ndash;2021</td>
+                </tr>
+              </table>
+            </div>
+          </section>
+
+          <!-- Contact -->
+          <section id="contact">
+            <h2 class="comment">// contact</h2>
+            <p>Have a question or an opportunity? Send me a message, or find me here:</p>
+            <ul>
+              <li>Email: <a href="mailto:ramosshawnangel@gmail.com">ramosshawnangel@gmail.com</a></li>
+              <li>GitHub: <a href="https://github.com/Sramos06" target="_blank" rel="noopener">github.com/Sramos06</a></li>
+              <li>LinkedIn: <a href="https://www.linkedin.com/in/sramos006" target="_blank" rel="noopener">linkedin.com/in/sramos006</a></li>
+            </ul>
+
+            <form id="contact-form" onsubmit="return sendMessage()" novalidate>
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required>
+              <span id="name-error" class="error"></span>
+
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+              <span id="email-error" class="error"></span>
+
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+              <span id="message-error" class="error"></span>
+
+              <button type="submit" class="send-btn">Send message</button>
+              <p id="form-message" class="form-message"></p>
+            </form>
+
+            <h3>Where I study</h3>
+            <iframe src="https://maps.google.com/maps?q=Polytechnic+University+of+the+Philippines+Sta.+Mesa+Manila&amp;output=embed" title="Map of the Polytechnic University of the Philippines in Manila" width="600" height="300" style="border:0;" loading="lazy"></iframe>
+          </section>
+        </div>
       </div>
-      <nav class="tabs">
-        <a href="#about">about.html</a>
-        <a href="#skills">skills.js</a>
-        <a href="#projects">projects/</a>
-        <a href="#education">education.csv</a>
-        <a href="#contact">contact.md</a>
-      </nav>
-    </header>
-
-    <main>
-      <!-- Line numbers, filled in by script.js -->
-      <div id="gutter" class="gutter" aria-hidden="true"></div>
-
-      <!-- About (basic info) -->
-      <section id="about">
-        <h2 class="comment">// about</h2>
-        <h1>Shawn Angel Ramos</h1>
-        <p class="role">BS Information Technology &middot; 3rd Year &middot; <abbr title="Polytechnic University of the Philippines">PUP</abbr> Manila</p>
-        <p id="greeting" class="console">&gt; Hi! I'm Shawn Ramos.</p>
-
-        <div class="about">
-          <img src="images/photo.jpg" alt="Photo of Shawn Angel Ramos" class="photo" width="160" height="160">
-          <div>
-            <p>I'm a third-year <strong>BS Information Technology</strong> student at the Polytechnic University of the Philippines. I mostly write <em>Java</em> and <em>Python</em>, and lately I've been building for the web: a study app called Repaso, school systems with my groupmates, and this page.</p>
-            <p>Outside class, I read novels, watch anime and movies, and play games.</p>
-            <blockquote class="doc">
-              <span class="dim">/**</span><br>
-              &nbsp;<span class="dim">*</span> Time never returns. Thus, let's live a faithful life.<br>
-              &nbsp;<span class="dim">* @see</span> <cite>Regressor's Tale of Cultivation</cite><br>
-              &nbsp;<span class="dim">*/</span>
-            </blockquote>
-          </div>
-        </div>
-      </section>
-
-      <!-- Skills -->
-      <section id="skills">
-        <h2 class="comment">// skills</h2>
-        <div class="filters">
-          <button id="btn-all" class="filter-btn active" onclick="showSkills('all')">All</button>
-          <button id="btn-languages" class="filter-btn" onclick="showSkills('languages')">Languages</button>
-          <button id="btn-tools" class="filter-btn" onclick="showSkills('tools')">Tools</button>
-        </div>
-        <!-- Filled in by script.js from the skills array -->
-        <div id="skill-list"></div>
-      </section>
-
-      <!-- What I can do -->
-      <section id="can-do">
-        <h2 class="comment">// what i can do</h2>
-        <ol>
-          <li>Build desktop apps in <strong>Java</strong> with Swing</li>
-          <li>Write <strong>Python</strong> scripts that generate and clean data with pandas and NumPy</li>
-          <li>Design <strong>MySQL</strong> tables and write SQL queries</li>
-          <li>Make web pages with <strong>HTML, CSS and JavaScript</strong></li>
-          <li>Keep my work organized with <strong>Git and GitHub</strong></li>
-        </ol>
-      </section>
-
-      <!-- My edge -->
-      <section id="edge">
-        <h2 class="comment">// my edge</h2>
-        <h3>I finish what I start.</h3>
-        <p>Repaso started as a study tool I wanted for myself. It's now a live web app, and I kept improving it until version 2.1.</p>
-        <h3>I fit into a team's code.</h3>
-        <p>For our OOP final, I built the whole Swing interface on top of a teammate's backend without changing their logic. In Data Analytics, I made the dataset my group used for every test and chart.</p>
-        <h3>I stay consistent.</h3>
-        <p>I was a <mark>President's Lister</mark> in my first year and a <mark>Dean's Lister</mark> in my second.</p>
-      </section>
-
-      <!-- Projects -->
-      <section id="projects">
-        <h2 class="comment">// projects</h2>
-
-        <div class="project-list">
-          <article class="project">
-            <a href="https://github.com/Sramos06/repaso" target="_blank" rel="noopener">
-              <img src="images/repaso.webp" alt="Screenshot of Repaso's desk, where my reviewers are listed" width="480" height="231">
-            </a>
-            <h3>Repaso</h3>
-            <p>A study hub web app where I keep my interactive reviewers and notes in one place, so I can review on my laptop or my phone. Sign-in is limited to my own account for now, so this links to the code.</p>
-            <p class="tech">Personal project &middot; Next.js, PostgreSQL, Vercel</p>
-            <a href="https://github.com/Sramos06/repaso" target="_blank" rel="noopener">View the code on GitHub</a>
-          </article>
-
-          <article class="project">
-            <a href="https://github.com/oop-group1/Simple-Ordering-System" target="_blank" rel="noopener">
-              <img src="images/ordering-system.png" alt="Screenshot of the Simple Ordering System's inventory report screen" width="480" height="330">
-            </a>
-            <h3>Simple Ordering System</h3>
-            <p>A desktop app for a small food shop: staff log in, manage the product inventory, take orders and check stock reports. I built the Swing interface on top of a teammate's backend.</p>
-            <p class="tech">OOP final project (group) &middot; Java, Swing, MySQL</p>
-            <a href="https://github.com/oop-group1/Simple-Ordering-System" target="_blank" rel="noopener">View the code on GitHub</a>
-          </article>
-        </div>
-      </section>
-
-      <!-- Education and experience -->
-      <section id="education">
-        <h2 class="comment">// education</h2>
-        <div class="table-wrap">
-          <table>
-            <tr class="table-title">
-              <th colspan="4">Bachelor of Science in Information Technology</th>
-            </tr>
-            <tr>
-              <th>School</th>
-              <th>Year</th>
-              <th>School Year</th>
-              <th>Recognition</th>
-            </tr>
-            <tr>
-              <td rowspan="3" class="school">PUP Manila</td>
-              <td>1st Year</td>
-              <td>2024&ndash;2025</td>
-              <td class="honor">President's Lister</td>
-            </tr>
-            <tr>
-              <td>2nd Year</td>
-              <td>2025&ndash;2026</td>
-              <td class="honor">Dean's Lister</td>
-            </tr>
-            <tr>
-              <td>3rd Year</td>
-              <td>2026&ndash;2027</td>
-              <td>In progress</td>
-            </tr>
-            <tr class="table-title">
-              <th colspan="4">Work Experience</th>
-            </tr>
-            <tr>
-              <th>Company</th>
-              <th colspan="2">Role</th>
-              <th>Years</th>
-            </tr>
-            <tr>
-              <td class="school">Remotasks</td>
-              <td colspan="2">Freelance Data Annotator (remote). Drew bounding boxes and sorted images into categories.</td>
-              <td>2020&ndash;2021</td>
-            </tr>
-          </table>
-        </div>
-      </section>
-
-      <!-- Contact -->
-      <section id="contact">
-        <h2 class="comment">// contact</h2>
-        <p>Have a question or an opportunity? Send me a message, or find me here:</p>
-        <ul>
-          <li>Email: <a href="mailto:ramosshawnangel@gmail.com">ramosshawnangel@gmail.com</a></li>
-          <li>GitHub: <a href="https://github.com/Sramos06" target="_blank" rel="noopener">github.com/Sramos06</a></li>
-          <li>LinkedIn: <a href="https://www.linkedin.com/in/sramos006" target="_blank" rel="noopener">linkedin.com/in/sramos006</a></li>
-        </ul>
-
-        <form id="contact-form" onsubmit="return sendMessage()" novalidate>
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required>
-          <span id="name-error" class="error"></span>
-
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
-          <span id="email-error" class="error"></span>
-
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
-          <span id="message-error" class="error"></span>
-
-          <button type="submit" class="send-btn">Send message</button>
-          <p id="form-message" class="form-message"></p>
-        </form>
-
-        <h3>Where I study</h3>
-        <iframe src="https://maps.google.com/maps?q=Polytechnic+University+of+the+Philippines+Sta.+Mesa+Manila&amp;output=embed" title="Map of the Polytechnic University of the Philippines in Manila" width="600" height="300" style="border:0;" loading="lazy"></iframe>
-      </section>
     </main>
-
-    <!-- Footer: styled like an editor's status bar -->
-    <footer class="statusbar">
-      <div>
-        <span>main</span>
-        <span>Manila, PH</span>
-      </div>
-      <div>
-        <span>&copy; <span id="year">2026</span> Shawn Angel Ramos</span>
-        <span>UTF-8</span>
-      </div>
-    </footer>
-
   </div>
 
-  <button id="top-btn" class="top-btn" onclick="scrollToTop()" title="Back to top">&uarr; top</button>
+  <!-- Terminal panel -->
+  <div class="terminal">
+    <div class="term-head"><b>TERMINAL</b></div>
+    <div class="term-body">
+      <div><span class="prompt">shawn@pup:~$</span> whoami</div>
+      <div class="term-out">Shawn Angel S. Ramos</div>
+      <div><span class="prompt">shawn@pup:~$</span> <span class="cursor"></span></div>
+    </div>
+  </div>
+
+  <!-- Footer: styled like an editor's status bar -->
+  <footer class="statusbar">
+    <span>&copy; <span id="year">2026</span> Shawn Angel Ramos</span>
+  </footer>
 
   <script src="js/script.js"></script>
 </body>
