@@ -339,9 +339,16 @@ mark {
   color: var(--accent);
 }
 
-/* About */
+/* About: photo beside the name */
+.me {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 24px;
+}
+
 .role {
-  margin: 6px 0 20px;
+  margin: 6px 0 0;
   color: var(--muted);
   font-family: var(--mono);
   font-size: 14px;
@@ -358,21 +365,28 @@ mark {
   font-size: 14px;
 }
 
-.about {
-  display: flex;
-  gap: 28px;
-  align-items: flex-start;
-}
-
 .photo {
   flex-shrink: 0;
   object-fit: cover;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
-.about p {
-  margin: 0 0 12px;
+/* Two photos side by side. flex: 1 gives them equal widths; min-width: 0 lets them shrink on small screens */
+.photos {
+  display: flex;
+  gap: 12px;
+  max-width: 640px;
+  margin-top: 28px;
+}
+
+.photos img {
+  flex: 1;
+  min-width: 0;
+  height: 180px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: 6px;
 }
 
 /* The motto, written like a code docstring */
@@ -694,10 +708,6 @@ iframe {
   h1 {
     font-size: 32px;
   }
-
-  .about {
-    flex-direction: column;
-  }
 }
 
 /* Phones */
@@ -720,6 +730,19 @@ iframe {
 
   .doc {
     font-size: 13px;
+  }
+
+  .me {
+    gap: 16px;
+  }
+
+  .photo {
+    width: 84px;
+    height: 84px;
+  }
+
+  .photos img {
+    height: 120px;
   }
 
   table {
