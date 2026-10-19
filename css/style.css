@@ -690,11 +690,12 @@ iframe {
     max-width: 300px;
     transform: translateX(-100%);
     transition: transform 0.3s;
-    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.35);
   }
 
+  /* The shadow only goes on when it's open; on the hidden drawer it would show as a grey strip along the left edge */
   .drawer-open .explorer {
     transform: none;
+    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.35);
   }
 
   .code {
