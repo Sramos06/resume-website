@@ -480,6 +480,17 @@ th {
   font-weight: 600;
 }
 
+/* School logos above "PUP Manila". Both are round, so the circle hides the white corners of the CCIS one */
+.logos {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.logos img {
+  border-radius: 50%;
+}
+
 .honor {
   color: var(--accent);
   font-family: var(--mono);
