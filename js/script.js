@@ -152,6 +152,21 @@ function sendMessage() {
   return false;
 }
 
+// Projects: show one project at a time (like the W3Schools Tabs page)
+function openProject(id, button) {
+  const projects = document.querySelectorAll(".project");
+  for (let i = 0; i < projects.length; i++) {
+    projects[i].classList.remove("open");
+  }
+  document.getElementById(id).classList.add("open");
+
+  const buttons = document.querySelectorAll(".project-btn");
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove("active");
+  }
+  button.classList.add("active");
+}
+
 // Phone: the file list slides in from the left. Picking a file closes it again
 function toggleDrawer() {
   document.body.classList.toggle("drawer-open");

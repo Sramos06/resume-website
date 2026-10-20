@@ -403,14 +403,15 @@ mark {
   font-style: normal;
 }
 
-/* Skills: filter buttons and skill bars */
+/* Rows of small buttons: the skill filter and the project switch look the same */
 .filters {
   display: flex;
   gap: 8px;
   margin-bottom: 18px;
 }
 
-.filter-btn {
+.filter-btn,
+.project-btn {
   padding: 6px 14px;
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -421,10 +422,13 @@ mark {
   cursor: pointer;
 }
 
-.filter-btn.active {
+.filter-btn.active,
+.project-btn.active {
   border-color: var(--accent);
   color: var(--accent);
 }
+
+/* Skill bars */
 
 .skill {
   display: flex;
@@ -512,38 +516,48 @@ th {
   white-space: nowrap;
 }
 
-/* Projects */
-.project-list {
-  display: flex;
+/* Projects: only the project with the "open" class shows, picture on the left and details on the right.
+   flex-wrap puts the details under the picture when there isn't room */
+.project {
+  display: none;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 28px;
 }
 
-.project {
-  flex: 1 1 300px;
-  padding: 16px;
+.project.open {
+  display: flex;
+}
+
+.media {
+  flex: 1.3 1 400px;
+  min-width: 0;
+}
+
+.detail {
+  flex: 1 1 260px;
+}
+
+.detail h3 {
+  margin-top: 0;
+}
+
+.detail p {
+  margin: 0 0 10px;
+}
+
+/* Screenshots of different sizes all fit the same box without being cut (contain) */
+.frame {
+  overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 6px;
   background-color: var(--bar);
 }
 
-/* Crop both screenshots to the same shape, keeping the top of each */
-.project img {
+.frame img {
   display: block;
   width: 100%;
-  height: 200px;
-  object-fit: cover;
-  object-position: top;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-}
-
-.project h3 {
-  margin-top: 16px;
-}
-
-.project p {
-  margin: 0 0 10px;
+  height: 300px;
+  object-fit: contain;
 }
 
 .tech {
@@ -709,6 +723,11 @@ iframe {
   h1 {
     font-size: 32px;
   }
+
+  /* A shorter box, so wide screenshots don't leave big empty bands above and below */
+  .frame img {
+    height: 220px;
+  }
 }
 
 /* Phones */
@@ -754,13 +773,8 @@ iframe {
 /* Hover and focus */
 a,
 .theme-btn,
-.project,
 .send-btn {
   transition: color 0.2s, background-color 0.2s, border-color 0.2s, opacity 0.2s;
-}
-
-.project:hover {
-  border-color: var(--accent);
 }
 
 .send-btn:hover {
