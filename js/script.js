@@ -167,6 +167,31 @@ function openProject(id, button) {
   button.classList.add("active");
 }
 
+// Repaso slideshow (based on the W3Schools How To: Slideshow)
+let slideIndex = 1;
+showSlide(slideIndex);
+
+function changeSlide(step) {
+  slideIndex = slideIndex + step;
+  showSlide(slideIndex);
+}
+
+// Hide every screenshot, then show only the current one. Past the last it wraps to the first, and back
+function showSlide(n) {
+  const slides = document.querySelectorAll(".slide");
+  if (n > slides.length) {
+    slideIndex = 1;
+  }
+  if (n < 1) {
+    slideIndex = slides.length;
+  }
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slides[slideIndex - 1].style.display = "block";
+  document.getElementById("slide-count").innerHTML = slideIndex + " / " + slides.length;
+}
+
 // Phone: the file list slides in from the left. Picking a file closes it again
 function toggleDrawer() {
   document.body.classList.toggle("drawer-open");

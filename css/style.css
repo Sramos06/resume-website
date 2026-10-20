@@ -411,7 +411,8 @@ mark {
 }
 
 .filter-btn,
-.project-btn {
+.project-btn,
+.slide-btn {
   padding: 6px 14px;
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -558,6 +559,14 @@ th {
   width: 100%;
   height: 300px;
   object-fit: contain;
+}
+
+/* prev on the left, the counter in the middle, next on the right */
+.slide-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
 }
 
 .tech {

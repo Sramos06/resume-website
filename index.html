@@ -159,9 +159,17 @@
             </div>
 
             <article id="repaso" class="project open">
+              <!-- Slideshow: only one screenshot shows; prev and next switch it (W3Schools How To: Slideshow) -->
               <div class="media">
                 <div class="frame">
-                  <img src="images/repaso.webp" alt="Screenshot of Repaso's desk, where my reviewers are listed" width="2000" height="963">
+                  <img class="slide" src="images/repaso.webp" alt="Repaso's desk, where my reviewers are listed" width="2000" height="963">
+                  <img class="slide" src="images/repaso-stats.webp" alt="Repaso's study stats: an attendance grid, day streaks and the most visited reviewers" width="1905" height="1164">
+                  <img class="slide" src="images/repaso-settings.webp" alt="Repaso's settings: four color themes and the reviewers saved for offline use" width="1943" height="1198">
+                </div>
+                <div class="slide-nav">
+                  <button class="slide-btn" onclick="changeSlide(-1)">&lsaquo; prev</button>
+                  <span id="slide-count" class="tech">1 / 3</span>
+                  <button class="slide-btn" onclick="changeSlide(1)">next &rsaquo;</button>
                 </div>
               </div>
               <div class="detail">
