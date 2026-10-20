@@ -561,6 +561,27 @@ th {
   object-fit: contain;
 }
 
+/* The demo video (W3Schools How To: Responsive Iframes). A percent padding is measured from the width,
+   so padding-top: 72% keeps the box at the video's shape (1000 x 720) on any screen. The iframe fills the box */
+.video {
+  position: relative;
+  overflow: hidden;
+  padding-top: 72%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--bar);
+}
+
+.video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+
 /* prev on the left, the counter in the middle, next on the right */
 .slide-nav {
   display: flex;
