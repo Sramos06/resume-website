@@ -30,8 +30,13 @@ function typeGreeting() {
   }
 }
 
-document.getElementById("greeting").textContent = "";
-typeGreeting();
+// If the visitor turned on "reduce motion", show the whole greeting at once instead of typing it
+if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  document.getElementById("greeting").textContent = message;
+} else {
+  document.getElementById("greeting").textContent = "";
+  typeGreeting();
+}
 
 // Footer year, so it never goes out of date
 document.getElementById("year").innerHTML = new Date().getFullYear();

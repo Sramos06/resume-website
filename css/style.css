@@ -888,3 +888,23 @@ textarea:focus {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+/* People who turned on "reduce motion" in their device settings get no animations:
+   nothing fades, slides or blinks, and links jump instead of scrolling smoothly */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  html,
+  .code {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .reveal .bar-fill {
+    opacity: 1;
+    transform: none;
+  }
+}
