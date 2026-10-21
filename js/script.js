@@ -206,6 +206,28 @@ function showSlide(n) {
   document.getElementById("slide-count").innerHTML = slideIndex + " / " + slides.length;
 }
 
+// Scroll animations: each section fades in when its top passes three quarters of the way down the screen.
+// JS adds the "reveal" class (which hides it), so without JS every section just stays visible
+const code = document.getElementById("code");
+const sections = document.querySelectorAll("section");
+
+for (let i = 0; i < sections.length; i++) {
+  sections[i].classList.add("reveal");
+}
+
+function revealSections() {
+  for (let i = 0; i < sections.length; i++) {
+    if (sections[i].getBoundingClientRect().top < window.innerHeight * 0.75) {
+      sections[i].classList.add("show");
+    }
+  }
+}
+
+// On a laptop only the editor scrolls; on a phone the whole page does, so listen to both
+code.addEventListener("scroll", revealSections);
+window.addEventListener("scroll", revealSections);
+revealSections();
+
 // Phone: the file list slides in from the left. Picking a file closes it again
 function toggleDrawer() {
   document.body.classList.toggle("drawer-open");

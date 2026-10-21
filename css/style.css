@@ -311,6 +311,29 @@ section {
   margin-top: 48px;
 }
 
+/* Scroll animation: a section starts see-through and 18px lower, then slides up into place when JS adds "show" */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: none;
+}
+
+/* The skill bars grow from the left at the same time. scaleX(0) squeezes a bar to nothing without changing its width */
+.reveal .bar-fill {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s ease-out;
+}
+
+.reveal.show .bar-fill {
+  transform: none;
+}
+
 #about {
   margin-top: 0;
 }
