@@ -293,13 +293,18 @@
     </main>
   </div>
 
-  <!-- Terminal panel -->
+  <!-- Terminal panel: type a command and press Enter. Clicking anywhere in it puts the cursor in the input -->
   <div class="terminal">
     <div class="term-head"><b>TERMINAL</b></div>
-    <div class="term-body">
-      <div><span class="prompt">shawn@pup:~$</span> whoami</div>
-      <div class="term-out">Shawn Angel S. Ramos</div>
-      <div><span class="prompt">shawn@pup:~$</span> <span class="cursor"></span></div>
+    <div id="term-body" class="term-body" onclick="document.getElementById('term-input').focus()">
+      <div id="term-output">
+        <div class="term-out">Type <b>help</b> and press Enter to see the commands.</div>
+      </div>
+      <!-- A form, so pressing Enter submits it, the same way the contact form works -->
+      <form class="term-line" onsubmit="return runCommand()">
+        <span class="prompt">shawn@pup:~$</span>
+        <input id="term-input" aria-label="Terminal command" autocomplete="off" spellcheck="false">
+      </form>
     </div>
   </div>
 

@@ -264,6 +264,78 @@ code.addEventListener("scroll", highlightFile);
 window.addEventListener("scroll", highlightFile);
 highlightFile();
 
+// Terminal: print the command back, then answer it. Each command is one case of the switch
+function runCommand() {
+  const input = document.getElementById("term-input");
+  const typed = input.value.trim();
+  const words = typed.toLowerCase().split(" ");
+  input.value = "";
+
+  // createTextNode shows what was typed as plain text, so typed HTML can't run on my page
+  const line = document.createElement("div");
+  line.innerHTML = '<span class="prompt">shawn@pup:~$</span> ';
+  line.appendChild(document.createTextNode(typed));
+  document.getElementById("term-output").appendChild(line);
+
+  switch (words[0]) {
+    case "help":
+      printLine("ls: list the files | open <file>: jump to a file | whoami | theme | clear");
+      break;
+    case "ls": {
+      let names = "";
+      for (let i = 0; i < fileLinks.length; i++) {
+        names += fileLinks[i].lastChild.textContent + "   ";
+      }
+      printLine(names);
+      break;
+    }
+    case "open": {
+      // "open edu" is enough: the first file whose name starts with it gets clicked
+      let found = false;
+      for (let i = 0; i < fileLinks.length; i++) {
+        const name = fileLinks[i].lastChild.textContent;
+        if (!found && words.length > 1 && name.startsWith(words[1])) {
+          fileLinks[i].click();
+          printLine("Opened " + name + ".");
+          found = true;
+        }
+      }
+      if (!found) {
+        printLine("No such file. Type ls to see them.");
+      }
+      break;
+    }
+    case "whoami":
+      printLine("Shawn Angel S. Ramos");
+      break;
+    case "theme":
+      toggleTheme();
+      printLine("Switched the theme.");
+      break;
+    case "clear":
+      document.getElementById("term-output").innerHTML = "";
+      break;
+    case "":
+      break;
+    default:
+      printLine("Command not found: " + words[0] + ". Type help.");
+  }
+
+  // Keep the newest line in view
+  const body = document.getElementById("term-body");
+  body.scrollTop = body.scrollHeight;
+
+  // false stops the form from reloading the page
+  return false;
+}
+
+function printLine(text) {
+  const line = document.createElement("div");
+  line.className = "term-out";
+  line.textContent = text;
+  document.getElementById("term-output").appendChild(line);
+}
+
 // Phone: the file list slides in from the left. Picking a file closes it again
 function toggleDrawer() {
   document.body.classList.toggle("drawer-open");
