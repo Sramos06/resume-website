@@ -15,9 +15,23 @@ if (hour < 12) {
   greeting = "Good evening";
 }
 
-document.getElementById("greeting").innerHTML =
-  "&gt; " + greeting + "! Hi, my name is " + person[0] + " " + person[1] +
+const message = "> " + greeting + "! Hi, my name is " + person[0] + " " + person[1] +
   " and I'm " + person[2] + " years old.";
+
+// Typing effect (W3Schools How To: Typing Effect): add one letter, then ask the browser
+// to run this again in 45 milliseconds, until the whole message is there
+let letter = 0;
+
+function typeGreeting() {
+  if (letter < message.length) {
+    document.getElementById("greeting").textContent += message.charAt(letter);
+    letter++;
+    setTimeout(typeGreeting, 45);
+  }
+}
+
+document.getElementById("greeting").textContent = "";
+typeGreeting();
 
 // Footer year, so it never goes out of date
 document.getElementById("year").innerHTML = new Date().getFullYear();

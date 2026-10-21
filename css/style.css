@@ -288,8 +288,17 @@ body {
   display: inline-block;
   width: 8px;
   height: 15px;
+  margin-left: 2px;
   background-color: var(--accent);
   vertical-align: -2px;
+  animation: blink 1s step-end infinite;
+}
+
+/* The cursor blinks: invisible for the second half of every second. step-end switches at once instead of fading */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
 
 /* Sections (the big left padding leaves room for the line numbers) */
