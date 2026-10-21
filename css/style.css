@@ -166,6 +166,13 @@ body {
   color: var(--text);
 }
 
+/* The file on screen right now (set by script.js as you scroll) */
+.tree a.active {
+  border-left-color: var(--accent);
+  background-color: var(--panel);
+  color: var(--text);
+}
+
 .tree i {
   width: 18px;
   color: var(--accent);

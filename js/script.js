@@ -228,12 +228,47 @@ code.addEventListener("scroll", revealSections);
 window.addEventListener("scroll", revealSections);
 revealSections();
 
+// The open file: the last section whose top has passed near the top of the screen.
+// It gets highlighted in the explorer, and its name goes in the tab
+const fileLinks = document.querySelectorAll(".tree a");
+
+function highlightFile() {
+  let current = "about";
+  for (let i = 0; i < sections.length; i++) {
+    if (sections[i].getBoundingClientRect().top < 160) {
+      current = sections[i].id;
+    }
+  }
+
+  // At the very bottom, the last file counts as open even if its top never gets that high
+  let scroller = document.documentElement;
+  if (code.scrollHeight > code.clientHeight) {
+    scroller = code;
+  }
+  if (scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 5) {
+    current = sections[sections.length - 1].id;
+  }
+
+  for (let i = 0; i < fileLinks.length; i++) {
+    if (fileLinks[i].getAttribute("href") === "#" + current) {
+      fileLinks[i].classList.add("active");
+      // lastChild is the file name written after the little <i> icon
+      document.getElementById("tab-name").textContent = fileLinks[i].lastChild.textContent;
+    } else {
+      fileLinks[i].classList.remove("active");
+    }
+  }
+}
+
+code.addEventListener("scroll", highlightFile);
+window.addEventListener("scroll", highlightFile);
+highlightFile();
+
 // Phone: the file list slides in from the left. Picking a file closes it again
 function toggleDrawer() {
   document.body.classList.toggle("drawer-open");
 }
 
-const fileLinks = document.querySelectorAll(".explorer a");
 for (let i = 0; i < fileLinks.length; i++) {
   fileLinks[i].onclick = function () {
     document.body.classList.remove("drawer-open");
