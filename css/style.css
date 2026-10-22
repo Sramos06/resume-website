@@ -665,6 +665,40 @@ th {
   font-size: 13px;
 }
 
+/* Learning log: a line down the left with a dot for each day, like a git history graph */
+.log {
+  max-width: 640px;
+  margin: 0;
+  padding: 0 0 0 20px;
+  border-left: 2px solid var(--border);
+  list-style: none;
+}
+
+.log li {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+/* The dot sits on the line: 20px of padding + 2px of line, minus half the dot (14px wide) = 28px back */
+.log li::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: -28px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background-color: var(--panel);
+}
+
+.log time {
+  display: block;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
 /* Contact form */
 form {
   max-width: 560px;
