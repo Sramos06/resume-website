@@ -284,7 +284,7 @@ function runCommand() {
 
   switch (words[0]) {
     case "help":
-      printLine("ls: list the files | open <file>: jump to a file | whoami | theme | clear");
+      printLine("ls: list the files | open <file>: jump to a file | whoami | resume | theme | clear");
       break;
     case "ls": {
       let names = "";
@@ -312,6 +312,11 @@ function runCommand() {
     }
     case "whoami":
       printLine("Shawn Angel S. Ramos");
+      break;
+    case "resume":
+      // Clicks the Download resume button in the explorer, so there's only one download link to keep up to date
+      document.getElementById("resume-link").click();
+      printLine("Downloading my resume (PDF).");
       break;
     case "theme":
       toggleTheme();

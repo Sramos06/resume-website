@@ -743,7 +743,9 @@ textarea {
   font-size: 14px;
 }
 
-.send-btn {
+/* Filled accent buttons: Send message, and Download resume in the explorer */
+.send-btn,
+.resume-btn {
   margin-top: 16px;
   padding: 10px 20px;
   border: none;
@@ -756,10 +758,20 @@ textarea {
   cursor: pointer;
 }
 
-/* The map stretches to the width of the page */
-iframe {
-  width: 100%;
-  border-radius: 4px;
+/* The download button is a link, so it needs the flex row (icon + text) and no underline */
+.resume-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 9px 12px;
+  text-decoration: none;
+}
+
+/* Links turn the text color on hover; this one keeps its own */
+.resume-btn:hover {
+  color: var(--on-accent);
 }
 
 /* Status bar (footer) */
