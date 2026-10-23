@@ -18,6 +18,76 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Internal CSS: these rules only matter when someone prints this page, so they live here instead of in style.css.
+       They come after the style.css link so they win over it. Printing gives a plain black-on-white resume -->
+  <style>
+    @media print {
+      body {
+        --bg: #ffffff;
+        --panel: #ffffff;
+        --bar: #f2f2f2;
+        --side: #ffffff;
+        --muted-bg: #e5e5e5;
+        --text: #111111;
+        --muted: #555555;
+        --border: #cccccc;
+        --accent: #2f5d1f;
+      }
+
+      html,
+      body {
+        height: auto;
+      }
+
+      body,
+      .bench {
+        display: block;
+      }
+
+      /* Hide the editor parts and everything you can only click */
+      .topbar,
+      .explorer,
+      .tab-row,
+      .gutter,
+      .terminal,
+      .filters,
+      .slide-nav,
+      #ordering .media,
+      #contact-form {
+        display: none;
+      }
+
+      /* Don't cut a project or a table row in half at a page break, or leave a heading alone at the bottom */
+      .project,
+      tr {
+        break-inside: avoid;
+      }
+
+      h2 {
+        break-after: avoid;
+      }
+
+      .code {
+        overflow: visible;
+      }
+
+      .code-inner {
+        padding: 0;
+      }
+
+      /* Show every section and both projects, even ones that haven't scrolled into view */
+      .reveal,
+      .reveal .bar-fill {
+        opacity: 1;
+        transform: none;
+      }
+
+      .project {
+        display: flex;
+      }
+    }
+  </style>
 </head>
 <body>
 
