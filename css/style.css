@@ -575,8 +575,14 @@ th {
   margin-bottom: 8px;
 }
 
+/* display: block removes the small gap an inline image leaves under itself inside a link */
 .logos img {
+  display: block;
   border-radius: 50%;
+}
+
+.logos a:hover img {
+  opacity: 0.8;
 }
 
 .honor {
