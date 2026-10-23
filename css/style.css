@@ -57,8 +57,7 @@ a:hover {
   color: var(--text);
 }
 
-/* Whole-screen layout: top bar, workbench, terminal and status bar stacked in a column.
-   Only the editor scrolls, like a real code editor */
+/* Whole-screen layout: the body is a column (top bar, workbench, terminal, status bar). Only the editor scrolls */
 html,
 body {
   height: 100%;
@@ -108,19 +107,39 @@ body {
   cursor: pointer;
 }
 
+/* Light/dark switch, outlined in the accent color so it's easy to spot */
 .theme-btn {
-  padding: 4px 12px;
-  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border: 1px solid var(--accent);
   border-radius: 4px;
   background: none;
-  color: var(--text);
+  color: var(--accent);
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
 }
 
 .theme-btn:hover {
-  border-color: var(--accent);
+  background-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.theme-btn .icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Dark mode shows the sun (switch to light), light mode shows the moon */
+.moon,
+.light .sun {
+  display: none;
+}
+
+.light .moon {
+  display: block;
 }
 
 /* Workbench: explorer and editor side by side */
@@ -134,19 +153,19 @@ body {
 .explorer {
   display: flex;
   flex-direction: column;
-  width: 240px;
+  width: 260px;
   flex-shrink: 0;
   overflow-y: auto;
   border-right: 1px solid var(--border);
   background-color: var(--side);
   font-family: var(--mono);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .explorer summary {
-  padding: 10px 14px 6px;
+  padding: 14px 16px 8px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   cursor: pointer;
 }
@@ -154,8 +173,8 @@ body {
 .tree a {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 4px 14px 4px 24px;
+  gap: 10px;
+  padding: 7px 16px 7px 24px;
   border-left: 2px solid transparent;
   color: var(--muted);
   text-decoration: none;
@@ -174,9 +193,9 @@ body {
 }
 
 .tree i {
-  width: 18px;
+  width: 20px;
   color: var(--accent);
-  font-size: 11px;
+  font-size: 12px;
   font-style: normal;
 }
 
@@ -187,6 +206,7 @@ body {
   border-top: 1px solid var(--border);
 }
 
+/* The four logo buttons share the full width */
 .social {
   display: flex;
   gap: 8px;
@@ -195,12 +215,15 @@ body {
   list-style: none;
 }
 
+.social li {
+  flex: 1;
+}
+
 .social a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  height: 44px;
   border: 1px solid var(--border);
   border-radius: 6px;
   color: var(--muted);
@@ -246,11 +269,8 @@ body {
   scroll-behavior: smooth;
 }
 
-/* Terminal panel */
+/* Terminal: closed, only the bar shows. script.js adds "open" to show the rest */
 .terminal {
-  display: flex;
-  flex-direction: column;
-  height: 150px;
   flex-shrink: 0;
   border-top: 1px solid var(--border);
   background-color: var(--bar);
@@ -258,13 +278,34 @@ body {
 
 .term-head {
   display: flex;
-  gap: 18px;
-  padding: 5px 16px;
-  border-bottom: 1px solid var(--border);
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 6px 16px;
+  border: none;
+  background: none;
   color: var(--muted);
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.term-head:hover {
+  color: var(--text);
+}
+
+.terminal.open .term-head {
+  border-bottom: 1px solid var(--border);
+}
+
+/* The arrow points up while closed (the panel opens upward) and down while open */
+.term-arrow::before {
+  content: "▲";
+}
+
+.terminal.open .term-arrow::before {
+  content: "▼";
 }
 
 .term-head b {
@@ -274,7 +315,8 @@ body {
 }
 
 .term-body {
-  flex: 1;
+  display: none;
+  height: 170px;
   overflow-y: auto;
   padding: 8px 16px;
   cursor: text;
@@ -295,6 +337,10 @@ body {
 .term-out b {
   color: var(--text);
   font-weight: 500;
+}
+
+.terminal.open .term-body {
+  display: block;
 }
 
 /* The command line: the prompt, then an input with no box that fills the rest of the line */
@@ -331,7 +377,7 @@ body {
   animation: blink 1s step-end infinite;
 }
 
-/* The cursor blinks: invisible for the second half of every second. step-end switches at once instead of fading */
+/* Blinking cursor. step-end switches it on and off instead of fading */
 @keyframes blink {
   50% {
     opacity: 0;
@@ -348,7 +394,7 @@ section {
   margin-top: 48px;
 }
 
-/* Scroll animation: a section starts see-through and 18px lower, then slides up into place when JS adds "show" */
+/* Scroll animation: sections start faded and 18px lower until script.js adds "show" */
 .reveal {
   opacity: 0;
   transform: translateY(18px);
@@ -360,15 +406,14 @@ section {
   transform: none;
 }
 
-/* The skill bars grow from the left at the same time. scaleX(0) squeezes a bar to nothing without changing its width */
-.reveal .bar-fill {
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 1s ease-out;
+/* Skill blocks start grey and light up one by one when the section shows */
+.reveal .block.on {
+  background-color: var(--muted-bg);
+  transition: background-color 0.3s;
 }
 
-.reveal.show .bar-fill {
-  transform: none;
+.reveal.show .block.on {
+  background-color: var(--accent);
 }
 
 #about {
@@ -392,10 +437,11 @@ h1 {
 h3 {
   margin: 24px 0 6px;
   font-size: 18px;
+  font-weight: 600;
 }
 
 p {
-  max-width: 600px;
+  max-width: 70ch;
 }
 
 li::marker {
@@ -427,7 +473,6 @@ mark {
   max-width: none;
   margin: 0 0 24px;
   padding: 10px 14px;
-  border-left: 2px solid var(--accent);
   background-color: var(--bar);
   color: var(--accent);
   font-family: var(--mono);
@@ -441,18 +486,34 @@ mark {
   border-radius: 6px;
 }
 
-/* Two photos side by side. flex: 1 gives them equal widths; min-width: 0 lets them shrink on small screens */
+/* Text on the left, photos on the right. flex-wrap stacks them on small screens */
+.about-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.about-text {
+  flex: 1 1 400px;
+}
+
+.about-text p:first-child {
+  margin-top: 0;
+}
+
+/* Equal-width photos. min-width: 0 lets them shrink (the width="960" would stop that) */
 .photos {
   display: flex;
+  flex: 1 1 400px;
   gap: 12px;
-  max-width: 640px;
-  margin-top: 28px;
+  min-width: 0;
 }
 
 .photos img {
   flex: 1;
   min-width: 0;
-  height: 180px;
+  height: 220px;
   object-fit: cover;
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -470,6 +531,22 @@ mark {
 .doc cite {
   color: var(--muted);
   font-style: normal;
+}
+
+/* What I can do and My edge side by side. Each column is at least 380px, so phones stack them */
+.two-cols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 56px;
+}
+
+.two-cols > div {
+  flex: 1 1 380px;
+}
+
+.two-cols ol,
+#edge h3:first-of-type {
+  margin-top: 0;
 }
 
 /* Rows of small buttons: the skill filter and the project switch look the same */
@@ -498,31 +575,46 @@ mark {
   color: var(--accent);
 }
 
-/* Skill bars */
+/* Skills: two columns when there's room (each row needs 460px) */
+#skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 56px;
+}
 
 .skill {
   display: flex;
+  flex: 1 1 460px;
   align-items: center;
   gap: 14px;
-  max-width: 600px;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.skill-logo {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
 }
 
 .skill-name {
   flex: 0 0 150px;
 }
 
-.bar {
+/* The level as 10 small blocks, like a loading bar */
+.blocks {
+  display: flex;
   flex: 1;
-  height: 8px;
-  border-radius: 4px;
+  gap: 4px;
+}
+
+.block {
+  flex: 1;
+  height: 12px;
+  border-radius: 2px;
   background-color: var(--muted-bg);
 }
 
-.bar-fill {
-  display: block;
-  height: 100%;
-  border-radius: 4px;
+.block.on {
   background-color: var(--accent);
 }
 
@@ -568,7 +660,7 @@ th {
   font-weight: 600;
 }
 
-/* School logos above "PUP Manila". Both are round, so the circle hides the white corners of the CCIS one */
+/* School logos. border-radius: 50% hides the white corners of the CCIS logo */
 .logos {
   display: flex;
   gap: 6px;
@@ -592,8 +684,7 @@ th {
   white-space: nowrap;
 }
 
-/* Projects: only the project with the "open" class shows, picture on the left and details on the right.
-   flex-wrap puts the details under the picture when there isn't room */
+/* Projects: only the one with "open" shows. flex-wrap moves the details under the picture on small screens */
 .project {
   display: none;
   flex-wrap: wrap;
@@ -636,8 +727,7 @@ th {
   object-fit: contain;
 }
 
-/* The demo video (W3Schools How To: Responsive Iframes). A percent padding is measured from the width,
-   so padding-top: 72% keeps the box at the video's shape (1000 x 720) on any screen. The iframe fills the box */
+/* Demo video (W3Schools How To: Responsive Iframes). padding-top: 72% keeps the video's shape (1000 x 720) */
 .video {
   position: relative;
   overflow: hidden;
@@ -671,44 +761,108 @@ th {
   font-size: 13px;
 }
 
-/* Learning log: a line down the left with a dot for each day, like a git history graph */
-.log {
-  max-width: 640px;
+/* Learning log timeline: a dot for each day. The chosen day's text shows in the box below */
+.timeline {
+  display: flex;
   margin: 0;
-  padding: 0 0 0 20px;
-  border-left: 2px solid var(--border);
+  padding: 0;
+  overflow-x: auto;
   list-style: none;
 }
 
-.log li {
+/* Each day draws its own piece of the line, so it still works when it scrolls on a phone */
+.timeline li {
   position: relative;
-  margin-bottom: 14px;
+  flex: 1;
+  min-width: 76px;
+  text-align: center;
 }
 
-/* The dot sits on the line: 20px of padding + 2px of line, minus half the dot (14px wide) = 28px back */
-.log li::before {
+.timeline li::before {
   content: "";
   position: absolute;
-  top: 5px;
-  left: -28px;
-  width: 10px;
-  height: 10px;
+  top: 10px;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background-color: var(--border);
+}
+
+/* The line starts at the first dot and stops at the last one */
+.timeline li:first-child::before {
+  left: 50%;
+}
+
+.timeline li:last-child::before {
+  right: 50%;
+}
+
+/* position: relative puts the button (and its dot) above the line */
+.timeline button {
+  position: relative;
+  padding: 4px 6px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* The dot: an empty circle that fills in for the chosen day */
+.timeline button::before {
+  content: "";
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 0 auto 8px;
   border: 2px solid var(--accent);
   border-radius: 50%;
   background-color: var(--panel);
+  transition: background-color 0.2s, transform 0.2s;
 }
 
-.log time {
-  display: block;
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 13px;
+.timeline li:hover button::before {
+  transform: scale(1.25);
+}
+
+.timeline li.active button {
+  color: var(--text);
+}
+
+.timeline li.active button::before {
+  background-color: var(--accent);
+}
+
+/* Each day's text stays hidden in the list; script.js copies the chosen one into the box below */
+.timeline p {
+  display: none;
+}
+
+.log-text {
+  max-width: none;
+  min-height: 3.4em;
+  margin: 16px 0 0;
+  padding: 12px 16px;
+  border-radius: 6px;
+  background-color: var(--bar);
 }
 
 /* Contact form */
 form {
-  max-width: 560px;
+  max-width: 760px;
   margin-top: 24px;
+}
+
+/* Name and email side by side. Each is at least 240px, so phones stack them */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 16px;
+}
+
+.form-row > div {
+  flex: 1 1 240px;
 }
 
 label {
@@ -771,7 +925,7 @@ textarea {
   justify-content: center;
   gap: 8px;
   margin-top: 12px;
-  padding: 9px 12px;
+  padding: 11px 12px;
   text-decoration: none;
 }
 
@@ -780,12 +934,13 @@ textarea {
   color: var(--on-accent);
 }
 
-/* Status bar (footer) */
+/* Status bar (footer): quiet, so it doesn't pull attention away from the content */
 .statusbar {
   flex-shrink: 0;
   padding: 4px 16px;
-  background-color: var(--accent);
-  color: var(--on-accent);
+  border-top: 1px solid var(--border);
+  background-color: var(--bar);
+  color: var(--muted);
   font-family: var(--mono);
   font-size: 12px;
 }
@@ -811,6 +966,38 @@ textarea {
 /* Responsive */
 .table-wrap {
   overflow-x: auto;
+}
+
+/* Big screens: everything a little larger, so the editor's width gets used */
+@media (min-width: 1250px) {
+  .code-inner {
+    padding: 32px 56px 64px 100px;
+    font-size: 17px;
+  }
+
+  h1 {
+    font-size: 52px;
+  }
+
+  .photo {
+    width: 150px;
+    height: 150px;
+  }
+
+  .photos img {
+    height: 240px;
+  }
+
+  .comment,
+  .role,
+  .console,
+  .doc {
+    font-size: 15px;
+  }
+
+  .frame img {
+    height: 380px;
+  }
 }
 
 /* Tablets and phones: a normal scrolling page, and the file list becomes a drawer */
@@ -857,7 +1044,7 @@ textarea {
     transition: transform 0.3s;
   }
 
-  /* The shadow only goes on when it's open; on the hidden drawer it would show as a grey strip along the left edge */
+  /* The shadow only shows when the drawer is open (closed, it left a grey strip at the edge) */
   .drawer-open .explorer {
     transform: none;
     box-shadow: 8px 0 24px rgba(0, 0, 0, 0.35);
@@ -891,12 +1078,19 @@ textarea {
     font-size: 11px;
   }
 
-  .skill-name {
-    flex-basis: 110px;
+  /* Phones: the blocks go on their own line (order: 1 puts them last) */
+  .skill {
+    flex-wrap: wrap;
+    gap: 6px 12px;
   }
 
-  .skill-level {
-    flex-basis: 90px;
+  .skill-name {
+    flex: 1;
+  }
+
+  .blocks {
+    order: 1;
+    flex-basis: 100%;
   }
 
   .doc {
@@ -941,8 +1135,7 @@ textarea:focus {
   outline-offset: 2px;
 }
 
-/* People who turned on "reduce motion" in their device settings get no animations:
-   nothing fades, slides or blinks, and links jump instead of scrolling smoothly */
+/* "Reduce motion" setting: no animations, and links jump instead of scrolling smoothly */
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
@@ -954,9 +1147,12 @@ textarea:focus {
     scroll-behavior: auto;
   }
 
-  .reveal,
-  .reveal .bar-fill {
+  .reveal {
     opacity: 1;
     transform: none;
+  }
+
+  .reveal .block.on {
+    background-color: var(--accent);
   }
 }

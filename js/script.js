@@ -1,6 +1,6 @@
 // Scripts for Shawn Angel Ramos's resume website
 
-// Greeting: an array with my first name, last name and age
+// Me: first name, last name and age (the whoami command prints it)
 const person = ["Shawn", "Ramos", 20];
 
 // Pick a greeting based on the current hour (0 to 23)
@@ -15,16 +15,14 @@ if (hour < 12) {
   greeting = "Good evening";
 }
 
-const message = "> " + greeting + "! Hi, my name is " + person[0] + " " + person[1] +
-  " and I'm " + person[2] + " years old.";
+const welcome = "> " + greeting + "! Welcome to my resume website.";
 
-// Typing effect (W3Schools How To: Typing Effect): add one letter, then ask the browser
-// to run this again in 45 milliseconds, until the whole message is there
+// Typing effect (W3Schools How To: Typing Effect): one letter every 45 milliseconds
 let letter = 0;
 
 function typeGreeting() {
-  if (letter < message.length) {
-    document.getElementById("greeting").textContent += message.charAt(letter);
+  if (letter < welcome.length) {
+    document.getElementById("greeting").textContent += welcome.charAt(letter);
     letter++;
     setTimeout(typeGreeting, 45);
   }
@@ -32,7 +30,7 @@ function typeGreeting() {
 
 // If the visitor turned on "reduce motion", show the whole greeting at once instead of typing it
 if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  document.getElementById("greeting").textContent = message;
+  document.getElementById("greeting").textContent = welcome;
 } else {
   document.getElementById("greeting").textContent = "";
   typeGreeting();
@@ -41,20 +39,20 @@ if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 // Footer year, so it never goes out of date
 document.getElementById("year").innerHTML = new Date().getFullYear();
 
-// Skills: each one has a name, a type (language or tool) and a level from 0 to 100
+// Skills: each one has a name, a type (language or tool), a level from 0 to 100, and its logo file in images/skills
 const skills = [
-  { name: "Java", type: "language", level: 80 },
-  { name: "Python", type: "language", level: 80 },
-  { name: "JavaScript", type: "language", level: 55 },
-  { name: "SQL (MySQL)", type: "language", level: 65 },
-  { name: "HTML and CSS", type: "language", level: 70 },
-  { name: "C++", type: "language", level: 30 },
-  { name: "Git and GitHub", type: "tool", level: 70 },
-  { name: "VS Code", type: "tool", level: 80 },
-  { name: "MySQL Workbench", type: "tool", level: 60 },
-  { name: "pandas and NumPy", type: "tool", level: 60 },
-  { name: "Figma", type: "tool", level: 45 },
-  { name: "Microsoft Excel", type: "tool", level: 70 }
+  { name: "Java", type: "language", level: 80, logo: "java.svg" },
+  { name: "Python", type: "language", level: 80, logo: "python.svg" },
+  { name: "JavaScript", type: "language", level: 55, logo: "javascript.svg" },
+  { name: "SQL (MySQL)", type: "language", level: 65, logo: "mysql.svg" },
+  { name: "HTML and CSS", type: "language", level: 70, logo: "html5.svg" },
+  { name: "C++", type: "language", level: 30, logo: "cplusplus.svg" },
+  { name: "Git and GitHub", type: "tool", level: 70, logo: "git.svg" },
+  { name: "VS Code", type: "tool", level: 80, logo: "vscode.svg" },
+  { name: "MySQL Workbench", type: "tool", level: 60, logo: "mysql.svg" },
+  { name: "pandas and NumPy", type: "tool", level: 60, logo: "numpy.svg" },
+  { name: "Figma", type: "tool", level: 45, logo: "figma.svg" },
+  { name: "Microsoft Excel", type: "tool", level: 70, logo: "excel.png" }
 ];
 
 // Turn a level number into a word for the label
@@ -88,9 +86,20 @@ function showSkills(filter) {
     }
 
     if (show) {
+      // 10 blocks like a loading bar, one filled block per 10 points. Each one waits a bit longer, so they light up left to right
+      let blocks = "";
+      for (let b = 1; b <= 10; b++) {
+        if (b * 10 <= skill.level) {
+          blocks += `<span class="block on" style="transition-delay: ${b * 60}ms"></span>`;
+        } else {
+          blocks += `<span class="block"></span>`;
+        }
+      }
+
       html += `<div class="skill">
+        <img src="images/skills/${skill.logo}" alt="" class="skill-logo" width="28" height="28">
         <span class="skill-name">${skill.name}</span>
-        <span class="bar"><span class="bar-fill" style="width: ${skill.level}%"></span></span>
+        <span class="blocks">${blocks}</span>
         <span class="skill-level">${levelLabel(skill.level)}</span>
       </div>`;
     }
@@ -112,11 +121,11 @@ showSkills("all");
 function toggleTheme() {
   document.body.classList.toggle("light");
 
-  const button = document.getElementById("theme-btn");
+  const label = document.getElementById("theme-label");
   if (document.body.classList.contains("light")) {
-    button.innerHTML = "Dark mode";
+    label.innerHTML = "Dark mode";
   } else {
-    button.innerHTML = "Light mode";
+    label.innerHTML = "Light mode";
   }
 }
 
@@ -127,7 +136,7 @@ for (let i = 1; i <= 300; i++) {
 }
 document.getElementById("gutter").innerHTML = numbers;
 
-// Contact form: check each field, then open the visitor's email app with the message
+// Contact form: check each field before it's sent
 function sendMessage() {
   const name = document.getElementById("name").value.trim();
   const email = document.getElementById("email").value.trim();
@@ -158,17 +167,13 @@ function sendMessage() {
     valid = false;
   }
 
-  if (valid) {
-    const subject = "Message from " + name;
-    const body = message + "\n\nFrom: " + name + " (" + email + ")";
-    window.location.href = "mailto:ramosshawnangel@gmail.com?subject=" +
-      encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-    document.getElementById("form-message").textContent =
-      "Thanks, " + name + "! Your email app should open with the message ready to send.";
-  }
+  // true sends the form to FormSubmit, false keeps it here to be fixed
+  return valid;
+}
 
-  // false stops the form from reloading the page
-  return false;
+// FormSubmit comes back here with "?sent" in the address after sending
+if (location.search.indexOf("sent") !== -1) {
+  document.getElementById("form-message").textContent = "Thanks! Your message was sent. I'll reply to your email soon.";
 }
 
 // Projects: show one project at a time (like the W3Schools Tabs page)
@@ -211,8 +216,7 @@ function showSlide(n) {
   document.getElementById("slide-count").innerHTML = slideIndex + " / " + slides.length;
 }
 
-// Scroll animations: each section fades in when its top passes three quarters of the way down the screen.
-// JS adds the "reveal" class (which hides it), so without JS every section just stays visible
+// Scroll animation: a section fades in once its top is 3/4 down the screen. JS adds "reveal", so without JS nothing gets hidden
 const code = document.getElementById("code");
 const sections = document.querySelectorAll("section");
 
@@ -233,8 +237,7 @@ code.addEventListener("scroll", revealSections);
 window.addEventListener("scroll", revealSections);
 revealSections();
 
-// The open file: the last section whose top has passed near the top of the screen.
-// It gets highlighted in the explorer, and its name goes in the tab
+// Current file: the last section that reached the top. It's highlighted in the explorer and named in the tab
 const fileLinks = document.querySelectorAll(".tree a");
 
 function highlightFile() {
@@ -255,12 +258,17 @@ function highlightFile() {
   }
 
   for (let i = 0; i < fileLinks.length; i++) {
-    if (fileLinks[i].getAttribute("href") === "#" + current) {
+    // what-i-can-do.md and my-edge.md share one section, so check the section around each link's target
+    const target = document.querySelector(fileLinks[i].getAttribute("href"));
+    if (target.closest("section").id === current) {
       fileLinks[i].classList.add("active");
-      // lastChild is the file name written after the little <i> icon
-      document.getElementById("tab-name").textContent = fileLinks[i].lastChild.textContent;
     } else {
       fileLinks[i].classList.remove("active");
+    }
+
+    // lastChild is the file name after the <i> icon
+    if (fileLinks[i].getAttribute("href") === "#" + current) {
+      document.getElementById("tab-name").textContent = fileLinks[i].lastChild.textContent;
     }
   }
 }
@@ -269,14 +277,53 @@ code.addEventListener("scroll", highlightFile);
 window.addEventListener("scroll", highlightFile);
 highlightFile();
 
-// Terminal: print the command back, then answer it. Each command is one case of the switch
+// Learning log: hovering over or tapping a day shows its text under the timeline
+const days = document.querySelectorAll(".timeline li");
+
+function showDay(n) {
+  for (let i = 0; i < days.length; i++) {
+    days[i].classList.remove("active");
+  }
+  days[n].classList.add("active");
+
+  const date = days[n].querySelector("time").textContent;
+  const text = days[n].querySelector("p").textContent;
+  document.getElementById("log-text").textContent = date + ": " + text;
+}
+
+// let gives each pass of the loop its own i, so each day remembers its number
+for (let i = 0; i < days.length; i++) {
+  days[i].onmouseenter = function () {
+    showDay(i);
+  };
+  days[i].onclick = function () {
+    showDay(i);
+  };
+}
+
+// Start on the latest day
+showDay(days.length - 1);
+
+// Terminal: it starts closed, and the bar opens and closes it
+function toggleTerminal() {
+  const terminal = document.getElementById("terminal");
+  terminal.classList.toggle("open");
+
+  const open = terminal.classList.contains("open");
+  terminal.querySelector(".term-head").setAttribute("aria-expanded", open);
+  if (open) {
+    document.getElementById("term-input").focus();
+  }
+}
+
+// Terminal commands: print the command back, then answer it. Each command is one case of the switch
 function runCommand() {
   const input = document.getElementById("term-input");
   const typed = input.value.trim();
   const words = typed.toLowerCase().split(" ");
   input.value = "";
 
-  // createTextNode shows what was typed as plain text, so typed HTML can't run on my page
+  // createTextNode shows typed HTML as plain text, so it can't run
   const line = document.createElement("div");
   line.innerHTML = '<span class="prompt">shawn@pup:~$</span> ';
   line.appendChild(document.createTextNode(typed));
@@ -311,10 +358,11 @@ function runCommand() {
       break;
     }
     case "whoami":
-      printLine("Shawn Angel S. Ramos");
+      // From the person array at the top: first name, last name, age
+      printLine(person[0] + " " + person[1] + ", " + person[2] + " years old, BSIT 3rd Year at PUP Manila");
       break;
     case "resume":
-      // Clicks the Download resume button in the explorer, so there's only one download link to keep up to date
+      // Same as clicking the Download resume button
       document.getElementById("resume-link").click();
       printLine("Downloading my resume (PDF).");
       break;
